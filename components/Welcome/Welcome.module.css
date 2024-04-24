@@ -8,3 +8,13 @@
     font-size: rem(50px);
   }
 }
+
+.container {
+  @media (max-width: $mantine-breakpoint-md) {
+    padding: 0 16px;
+  }
+}
+
+.auto {
+  margin: auto;
+}

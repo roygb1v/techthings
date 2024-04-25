@@ -1,11 +1,14 @@
-import { Title, Text, Button, Group } from '@mantine/core';
+'use client';
+
+import { useRouter } from 'next/navigation';
+import { Title, Text, Button, Group, Container } from '@mantine/core';
 import classes from './Welcome.module.css';
-import { QuizFormParent } from '../QuizForm/QuizFormParent';
 
 export function Welcome() {
+  const router = useRouter();
   return (
-    <div className={classes.container}>
-      <Title className={classes.title} ta="center" mt="xl">
+    <Container size="lg" className={classes.container}>
+      <Title className={classes.title} ta="center">
         Find your{' '}
         <Text inherit variant="gradient" component="span" gradient={{ from: 'red', to: 'yellow' }}>
           perfect
@@ -17,11 +20,10 @@ export function Welcome() {
         needs.
       </Text>
       <Group justify="center" mt="xl">
-        <Button size="lg" color="#F21616">
+        <Button size="lg" color="#F21616" onClick={() => router.push('/quiz')}>
           Start now
         </Button>
       </Group>
-      <QuizFormParent />
-    </div>
+    </Container>
   );
 }

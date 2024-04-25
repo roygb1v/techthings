@@ -1,0 +1,41 @@
+/* .input-container {
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+}
+
+.input-container input {
+  position: absolute;
+
+}
+
+.input-container span {
+  padding: 16px 96px;
+  border: 1px solid black;
+}
+
+.input-container span:focus {
+  background: red;
+  outline: 1px dashed green;
+}
+
+.input-container span:hover {
+  background: lightgray;
+  cursor: pointer;
+} */
+
+.input-container input {
+  display: none;
+}
+
+li {
+
+}
+
+li {
+  cursor: pointer;
+}
+
+li:focus {
+  outline: 1px dashed green;
+}

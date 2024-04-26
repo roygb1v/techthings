@@ -22,3 +22,7 @@ input:checked {
   display: flex;
   align-items: center;
 }
+
+.active {
+  background: #34d399;
+}

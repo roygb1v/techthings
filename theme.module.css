@@ -8,14 +8,4 @@
     background: linear-gradient(45deg, #4b6cb7 10%, #253b67 90%);
     color: var(--mantine-color-white);
   }
-
-  &[data-variant='light'] {
-    background: none;
-    color: var(--mantine-color-black);
-  }
-
-  &[data-variant='dark'] {
-    background: none;
-    color: var(--mantine-color-white);
-  }
 }

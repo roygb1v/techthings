@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import { useForm } from '@mantine/form';
-import { RadioGroup, Radio, Button, Group, Box, Text } from '@mantine/core';
+import { RadioGroup, Radio, Button, Group, Text, Center, rem } from '@mantine/core';
+import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
 
 import './QuizFormParent.css';
 
@@ -15,7 +16,7 @@ export function QuizFormParent() {
   const [step, setStep] = useState<number>(0);
 
   return (
-    <Box mt="xl" maw={540} mx="auto">
+    <Center mx="auto" maw={400} h={400}>
       <form
         onSubmit={form.onSubmit((values) => {
           console.log(values);
@@ -54,30 +55,37 @@ export function QuizFormParent() {
           />
         )}
         <Text color="red">{error}</Text>
-        <Group justify="center" mt="md">
+        <Group justify="right" mt="md">
+          {step > 0 && (
+            <Button
+              type="button"
+              size="lg"
+              variant="subtle"
+              color="#404040"
+              disabled={step === 0}
+              onClick={() => setStep((prev) => prev - 1)}
+            >
+              <span className="button-text">
+                <IconChevronLeft style={{ width: rem(22) }} stroke={1} /> Back
+              </span>
+            </Button>
+          )}
+
           <Button
-            type="submit"
+            type="button"
             size="lg"
-            variant="outline"
-            color="#F21616"
-            disabled={step === 0}
-            onClick={() => setStep((prev) => prev - 1)}
-          >
-            Back
-          </Button>
-          <Button
-            type="submit"
-            size="lg"
-            variant="outline"
+            variant="filled"
             color="#F21616"
             disabled={step === 3}
             onClick={() => setStep((prev) => prev + 1)}
           >
-            Next
+            <span className="button-text">
+              Next <IconChevronRight style={{ width: rem(22) }} stroke={1} />
+            </span>
           </Button>
         </Group>
       </form>
-    </Box>
+    </Center>
   );
 }
 
@@ -94,9 +102,14 @@ function QuizFormChild({
 }) {
   return (
     <RadioGroup
-      size="xl"
+      className="radiogroup"
+      size="lg"
       key={form.key(name)}
-      label={<Text size="xl">{label}</Text>}
+      label={
+        <Text size="xl" fw={400}>
+          {label}
+        </Text>
+      }
       description={description}
       {...form.getInputProps(name, { type: 'radio' })}
     >
@@ -104,30 +117,5 @@ function QuizFormChild({
       <Radio value="2" label="Quite important" />
       <Radio value="3" label="Very important" />
     </RadioGroup>
-    // <fieldset>
-    //   <legend>{label}</legend>
-    //   <ul className="input-container">
-    //     <li tabIndex="0">
-    //       <label>
-    //         <input type="radio" name={name} />
-    //         <span>Not important at all</span>
-    //       </label>
-    //     </li>
-
-    //     <li tabIndex="1">
-    //       <label>
-    //         <input type="radio" name={name} />
-    //         <span>Quite important</span>
-    //       </label>
-    //     </li>
-
-    //     <li tabIndex="2">
-    //       <label>
-    //         <input type="radio" name={name} />
-    //         <span>Very important</span>
-    //       </label>
-    //     </li>
-    //   </ul>
-    // </fieldset>
   );
 }

@@ -1,7 +1,12 @@
 'use client';
 
-import { createTheme } from '@mantine/core';
+import { createTheme, ActionIcon } from '@mantine/core';
+import classes from './theme.module.css';
 
 export const theme = createTheme({
-  /* Put your mantine theme override here */
+  components: {
+    ActionIcon: ActionIcon.extend({
+      classNames: classes,
+    }),
+  },
 });

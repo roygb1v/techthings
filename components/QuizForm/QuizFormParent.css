@@ -1,41 +1,24 @@
-/* .input-container {
+div[role=radiogroup] {
+  padding: 32px 0px;
+  display: grid;
+  gap: 24px;
+}
+
+.mantine-Radio-body {
   display: flex;
-  flex-direction: column;
-  gap: 48px;
+  align-items: center;
+  padding: 0px;
 }
 
-.input-container input {
-  position: absolute;
-
+.mantine-Radio-inner {
+  /* display: none; */
 }
 
-.input-container span {
-  padding: 16px 96px;
-  border: 1px solid black;
+input:checked {
+  border: 1px solid red;
 }
 
-.input-container span:focus {
-  background: red;
-  outline: 1px dashed green;
-}
-
-.input-container span:hover {
-  background: lightgray;
-  cursor: pointer;
-} */
-
-.input-container input {
-  display: none;
-}
-
-li {
-
-}
-
-li {
-  cursor: pointer;
-}
-
-li:focus {
-  outline: 1px dashed green;
+.button-text {
+  display: flex;
+  align-items: center;
 }

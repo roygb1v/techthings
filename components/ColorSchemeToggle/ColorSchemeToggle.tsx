@@ -13,7 +13,7 @@ export function ColorSchemeToggle() {
     <Group justify="right">
       <ActionIcon
         onClick={() => setColorScheme(computedColorScheme === 'light' ? 'dark' : 'light')}
-        variant="default"
+        variant={computedColorScheme === 'light' ? 'light' : 'dark'}
         size="xl"
         aria-label="Toggle between dark or light mode"
       >

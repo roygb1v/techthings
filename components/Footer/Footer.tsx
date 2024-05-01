@@ -4,8 +4,8 @@ import { Container, Group, Anchor, Text } from '@mantine/core';
 import classes from './Footer.module.css';
 
 const links = [
-  // { link: '#', label: 'Contact' },
-  // { link: '#', label: 'Privacy' },
+  { link: '#', label: 'Contact' },
+  { link: '#', label: 'Privacy' },
 ];
 
 export function Footer() {

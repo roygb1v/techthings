@@ -11,9 +11,11 @@ export function Header() {
   return (
     <header className={classes.header}>
       <Container size="lg" className={classes.inner}>
-        <Text fw={700} color="#F21616" size="lg">
-          TechThings
-        </Text>
+        <a href="/" className={classes.link}>
+          <Text fw={700} color="#F21616" size="lg">
+            TechThings
+          </Text>
+        </a>
         <Group>
           <ColorSchemeToggle />
           <Burger opened={drawerOpened} onClick={toggle} hiddenFrom="xs" size="sm" />

@@ -5,7 +5,7 @@ import classes from './Faq.module.css';
 
 export function Faq() {
   return (
-    <Container size="sm" mt="xl" className={classes.wrapper}>
+    <Container size="lg" mt="xl" className={classes.wrapper}>
       <Title ta="center" className={classes.title}>
         Frequently Asked Questions
       </Title>

@@ -5,7 +5,8 @@ import { useForm } from '@mantine/form';
 import {
   MultiSelect,
   Pill,
-  Box,
+  Card,
+  Badge,
   RadioGroup,
   Radio,
   Button,
@@ -17,7 +18,6 @@ import {
   Image,
   Space,
   RingProgress,
-  Divider,
   rem,
 } from '@mantine/core';
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react';
@@ -31,6 +31,8 @@ export function QuizFormParent() {
 
   const [error] = useState('');
   const [step, setStep] = useState<number>(0);
+  const shouldShowBack = step > 0 && step < 3;
+  const shouldShowNext = step >= 0 && step < 3;
 
   return (
     <Center mx="auto" maw={400} h={step === 4 ? '100%' : 400}>
@@ -72,8 +74,9 @@ export function QuizFormParent() {
           />
         )}
         <Text color="red">{error}</Text>
+
         <Group justify="right" mt="md">
-          {step > 0 && step < 3 && (
+          {shouldShowBack && (
             <Button
               type="button"
               size="lg"
@@ -88,7 +91,7 @@ export function QuizFormParent() {
             </Button>
           )}
 
-          {step >= 0 && step < 3 && (
+          {shouldShowNext && (
             <Button
               type="button"
               size="lg"
@@ -109,7 +112,10 @@ export function QuizFormParent() {
               size="lg"
               variant="filled"
               color="#F21616"
-              onClick={() => setStep((prev) => prev + 1)}
+              onClick={() => {
+                console.log('last step: ', form.getValues());
+                setStep((prev) => prev + 1);
+              }}
             >
               <span className="button-text">
                 View <IconChevronRight style={{ width: rem(22) }} stroke={1} />
@@ -180,6 +186,7 @@ function MultiSelectQuizFormChild({
       </Text>
       {data.map((d) => (
         <Pill
+          key={d}
           className={value.includes(d) ? 'active' : ''}
           size="xl"
           mb="lg"
@@ -212,53 +219,56 @@ function MatchResults() {
   return (
     <Container>
       <Title>Choose your next laptop.</Title>
-      <Box>
+      <Space h="xl" />
+      <Card shadow="sm" padding="lg" radius="md" withBorder>
+        <Group justify="space-between">
+          <Badge color="green" size="lg">
+            Recommended
+          </Badge>
+          <RingProgress
+            size={60}
+            thickness={5}
+            // roundCaps
+            sections={[{ value: 99, color: 'green' }]}
+            label={
+              <Text c="blue" fw={700} ta="center" size="sm">
+                99%
+              </Text>
+            }
+          />
+        </Group>
         <Image
           radius="sm"
           src="https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/mba13-midnight-select-202402?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1708367688034"
         />
-        <RingProgress
-          sections={[{ value: 99, color: '#00B14F' }]}
-          label={
-            <Text c="blue" fw={700} ta="center" size="sm">
-              99% match
-            </Text>
-          }
-        />
+        <Text size="xl" fw={700}>
+          Macbook Pro 16-inch
+        </Text>
         <Space h="md" />
-        <Text fw={700}>8-Core CPU</Text>
-        <Text fw={700}>8-Core GPU</Text>
-        <Text>8GB Unified Memory</Text>
-        <Text>256GB SSD Storage</Text>
-        <Space h="md" />
-        <Button size="lg" variant="filled" color="#F21616" fullWidth>
-          View on Amazon
-        </Button>
-      </Box>
-      <Divider my="xl" />
-      <Box>
-        <Image
-          radius="sm"
-          src="https://store.storeimages.cdn-apple.com/8756/as-images.apple.com/is/mba13-midnight-select-202402?wid=904&hei=840&fmt=jpeg&qlt=90&.v=1708367688034"
-        />
-        <RingProgress
-          sections={[{ value: 97, color: '#00B14F' }]}
-          label={
-            <Text c="blue" fw={700} ta="center" size="sm">
-              97% match
-            </Text>
-          }
-        />
-        <Space h="md" />
-        <Text fw={700}>8-Core CPU</Text>
-        <Text fw={700}>8-Core GPU</Text>
-        <Text>8GB Unified Memory</Text>
-        <Text>256GB SSD Storage</Text>
-        <Space h="md" />
-        <Button size="lg" variant="filled" color="#F21616" fullWidth>
-          View on Amazon
-        </Button>
-      </Box>
+        <Text size="lg" fw={500}>
+          8-Core CPU
+        </Text>
+        <Text size="lg" fw={500}>
+          8-Core GPU
+        </Text>
+        <Text size="lg" fw={500}>
+          8GB Unified Memory
+        </Text>
+        <Text size="lg" fw={500}>
+          256GB SSD Storage
+        </Text>
+        <Space h="xl" />
+        <a
+          href="https://www.apple.com/sg/shop/buy-mac/macbook-pro/14-inch"
+          target="_blank"
+          rel="noreferrer"
+          style={{ textDecoration: 'none' }}
+        >
+          <Button size="lg" variant="filled" color="#F21616" fullWidth>
+            View
+          </Button>
+        </a>
+      </Card>
     </Container>
   );
 }

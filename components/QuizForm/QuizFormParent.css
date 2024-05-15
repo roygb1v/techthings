@@ -26,3 +26,13 @@ input:checked {
 .active {
   background: #34d399;
 }
+
+.mantine-Radio-root {
+    padding: 1rem;
+    border: 1px solid gainsboro;
+    border-radius: 8px;
+}
+
+.p-4{
+  padding-right: 1rem;
+}

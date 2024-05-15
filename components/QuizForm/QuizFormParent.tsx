@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import { useForm } from '@mantine/form';
 import {
-  MultiSelect,
   Pill,
   Card,
   Badge,
@@ -31,7 +30,7 @@ export function QuizFormParent() {
 
   const [error] = useState('');
   const [step, setStep] = useState<number>(0);
-  const shouldShowBack = step > 0 && step < 3;
+  const shouldShowBack = step > 0 && step <= 3;
   const shouldShowNext = step >= 0 && step < 3;
 
   return (
@@ -45,7 +44,7 @@ export function QuizFormParent() {
           <QuizFormChild
             form={form}
             name="cost"
-            label="How important is cost to you?"
+            label={<Text fz="xl">How important is cost to you?</Text>}
             description=""
           />
         )}
@@ -53,7 +52,7 @@ export function QuizFormParent() {
           <QuizFormChild
             form={form}
             name="weight"
-            label="How important is weight to you?"
+            label={<Text fz="xl">How important is weight to you?</Text>}
             description=""
           />
         )}
@@ -61,7 +60,7 @@ export function QuizFormParent() {
           <QuizFormChild
             form={form}
             name="size"
-            label="How important is screen size to you?"
+            label={<Text fz="xl">How important is screen size to you?</Text>}
             description=""
           />
         )}
@@ -69,8 +68,7 @@ export function QuizFormParent() {
           <MultiSelectQuizFormChild
             form={form}
             name="options"
-            label="What will you use the laptop for?"
-            description="Select up to 3 options."
+            label={<Text fz="xl">What will you use the laptop for?</Text>}
           />
         )}
         <Text color="red">{error}</Text>
@@ -107,20 +105,22 @@ export function QuizFormParent() {
           )}
 
           {step === 3 && (
-            <Button
-              type="submit"
-              size="lg"
-              variant="filled"
-              color="#F21616"
-              onClick={() => {
-                console.log('last step: ', form.getValues());
-                setStep((prev) => prev + 1);
-              }}
-            >
-              <span className="button-text">
-                View <IconChevronRight style={{ width: rem(22) }} stroke={1} />
-              </span>
-            </Button>
+            <div className="p-4">
+              <Button
+                type="submit"
+                size="lg"
+                variant="filled"
+                color="#F21616"
+                onClick={() => {
+                  console.log(form.getValues());
+                  setStep((prev) => prev + 1);
+                }}
+              >
+                <span className="button-text">
+                  View <IconChevronRight style={{ width: rem(22) }} stroke={1} />
+                </span>
+              </Button>
+            </div>
           )}
         </Group>
       </form>
@@ -140,6 +140,9 @@ function QuizFormChild({
   label: string;
   description: string;
 }) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_, setValue] = useState(null);
+
   return (
     <RadioGroup
       className="radiogroup"
@@ -151,11 +154,30 @@ function QuizFormChild({
         </Text>
       }
       description={description}
+      value={form.getValues()[name]}
       {...form.getInputProps(name, { type: 'radio' })}
     >
-      <Radio value="1" label="Not important" />
-      <Radio value="2" label="Quite important" />
-      <Radio value="3" label="Very important" />
+      <Radio
+        value="1"
+        label="Not important"
+        onClick={(e) => {
+          setValue(e.target.value);
+        }}
+      />
+      <Radio
+        value="2"
+        label="Quite important"
+        onClick={(e) => {
+          setValue(e.target.value);
+        }}
+      />
+      <Radio
+        value="3"
+        label="Very important"
+        onClick={(e) => {
+          setValue(e.target.value);
+        }}
+      />
     </RadioGroup>
   );
 }
@@ -164,12 +186,10 @@ function MultiSelectQuizFormChild({
   form,
   name,
   label,
-  description,
 }: {
   form: any;
   name: string;
   label: string;
-  description: string;
 }) {
   const data = [
     'Surfing the web',
@@ -178,16 +198,18 @@ function MultiSelectQuizFormChild({
     'Music and Video editing',
     'Image editing',
   ];
-  const [value, setValue] = useState<string[]>([]);
+  const [value, setValue] = useState<string[]>(form.getValues()[name] || []);
+
   return (
-    <div>
+    <Container>
       <Text size="xl" fw={400} mb="md">
         {label}
       </Text>
+      <Space h="xl" />
       {data.map((d) => (
         <Pill
           key={d}
-          className={value.includes(d) ? 'active' : ''}
+          className={value?.includes(d) ? 'active' : ''}
           size="xl"
           mb="lg"
           mr="sm"
@@ -196,22 +218,26 @@ function MultiSelectQuizFormChild({
               const index = value.findIndex((element) => element === d);
               const values = [...value.slice(0, index), ...value.slice(index + 1)];
               setValue(values);
+
+              form.setValues({
+                ...form.getValues(),
+                [name]: values,
+              });
             } else {
-              setValue([...value, d]);
+              const values = [...value, d];
+              setValue(values);
+
+              form.setValues({
+                ...form.getValues(),
+                [name]: values,
+              });
             }
           }}
         >
           {d}
         </Pill>
       ))}
-      <MultiSelect
-        {...form.getInputProps(name, { type: 'multiselect' })}
-        placeholder={value.length === 0 ? description : ''}
-        data={data}
-        value={value}
-        onChange={setValue}
-      />
-    </div>
+    </Container>
   );
 }
 
@@ -228,7 +254,6 @@ function MatchResults() {
           <RingProgress
             size={60}
             thickness={5}
-            // roundCaps
             sections={[{ value: 99, color: 'green' }]}
             label={
               <Text c="blue" fw={700} ta="center" size="sm">

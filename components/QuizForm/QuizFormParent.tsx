@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { useForm } from '@mantine/form';
 import {
   Pill,
@@ -44,7 +44,7 @@ export function QuizFormParent() {
           <QuizFormChild
             form={form}
             name="cost"
-            label={<Text fz="xl">How important is cost to you?</Text>}
+            label="How important is cost to you?"
             description=""
           />
         )}
@@ -52,7 +52,7 @@ export function QuizFormParent() {
           <QuizFormChild
             form={form}
             name="weight"
-            label={<Text fz="xl">How important is weight to you?</Text>}
+            label="How important is weight to you?"
             description=""
           />
         )}
@@ -60,7 +60,7 @@ export function QuizFormParent() {
           <QuizFormChild
             form={form}
             name="size"
-            label={<Text fz="xl">How important is screen size to you?</Text>}
+            label="How important is screen size to you?"
             description=""
           />
         )}
@@ -68,7 +68,7 @@ export function QuizFormParent() {
           <MultiSelectQuizFormChild
             form={form}
             name="options"
-            label={<Text fz="xl">What will you use the laptop for?</Text>}
+            label="What will you use the laptop for?"
           />
         )}
         <Text color="red">{error}</Text>
@@ -112,7 +112,6 @@ export function QuizFormParent() {
                 variant="filled"
                 color="#F21616"
                 onClick={() => {
-                  console.log(form.getValues());
                   setStep((prev) => prev + 1);
                 }}
               >
@@ -141,7 +140,7 @@ function QuizFormChild({
   description: string;
 }) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [_, setValue] = useState(null);
+  const [_, setValue] = useState('0');
 
   return (
     <RadioGroup
@@ -161,21 +160,21 @@ function QuizFormChild({
         value="1"
         label="Not important"
         onClick={(e) => {
-          setValue(e.target.value);
+          setValue(e.currentTarget.value);
         }}
       />
       <Radio
         value="2"
         label="Quite important"
         onClick={(e) => {
-          setValue(e.target.value);
+          setValue(e.currentTarget.value);
         }}
       />
       <Radio
         value="3"
         label="Very important"
         onClick={(e) => {
-          setValue(e.target.value);
+          setValue(e.currentTarget.value);
         }}
       />
     </RadioGroup>

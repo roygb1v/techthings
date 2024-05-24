@@ -23,7 +23,7 @@ export function Footer() {
 
   return (
     <div className={classes.footer}>
-      <Container className={classes.inner}>
+      <Container className={classes.inner} size="150rem">
         <Text fw={700} color="#F21616" size="xl">
           TechThings
         </Text>

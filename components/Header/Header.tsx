@@ -1,6 +1,6 @@
 'use client';
 
-import { Container, Burger, Drawer, Text, Group } from '@mantine/core';
+import { Burger, Drawer, Text, Group } from '@mantine/core';
 import { useDisclosure } from '@mantine/hooks';
 import classes from './Header.module.css';
 import { ColorSchemeToggle } from '../ColorSchemeToggle/ColorSchemeToggle';
@@ -10,7 +10,7 @@ export function Header() {
 
   return (
     <header className={classes.header}>
-      <Container size="lg" className={classes.inner}>
+      <div className={classes.inner}>
         <a href="/" className={classes.link}>
           <Text fw={700} color="#F21616" size="lg">
             TechThings
@@ -41,7 +41,7 @@ export function Header() {
             <Text fw={700}>Take Quiz</Text>
           </a>
         </Drawer>
-      </Container>
+      </div>
     </header>
   );
 }
